@@ -1,0 +1,273 @@
+/* スマホ対応   */
+@media screen and (max-width: 480px) {
+
+header {
+    height: 13vw;
+}
+
+.logo-area {
+    /* width: 5vw; */
+    /* height: 10vw; */
+}
+
+.sub-title {
+    font-size: 1.5rem;
+}
+
+#nav-input:checked ~ #nav-content {
+    transform: translateX(-75%);
+}
+
+.btn-Ham {
+    height: 12vw;
+    line-height: 12vw;
+}
+
+.logo {
+    width: 14vw;
+    margin-left: 10vw;
+}
+
+.s_top {
+    padding-top: 13%;
+}
+
+.view {
+    height: auto;
+    padding-bottom: 7vw;
+}
+
+.top-area {
+    margin-top: 15vw;
+    padding-bottom: 5vw;
+}
+
+.btn-dog {
+    transform: translateX(140%);
+}
+
+.pagenation {
+    height: 4vw;
+    transform: translateX(40%);
+}
+
+.page-this {
+    width: 3vw;
+    height: 6vw;
+}
+
+.page {
+    bottom: 0px;
+    width: 3vw;
+    height: 4vw;
+}
+
+.top-area h1 {
+    font-size: 4rem;
+    margin-right: 2vw;
+}
+
+.top-area h2 {
+    font-size: 3rem;
+    margin-right: 2vw;
+}
+.s_aboutsite {
+    padding-left: 5%;
+}
+
+.s_SkilSet {
+    padding-left: 5%;
+}
+
+.s_Profile {
+    padding-left: 5%;
+}
+
+.s_contactfrome {
+    padding-left: 5%;
+}
+.dsp-font {
+    font-size: 2rem;
+    width: 70vw;
+}
+
+.s_aboutsite {
+    height: auto;
+    padding-bottom: 15vw;
+}
+
+.dogicon {
+    width: 30vw;
+    height: 30vw;
+    transform: translateX(50%);
+}
+
+.about-me {
+    display: block;
+}
+
+.s_aboutme {
+    height: auto;
+    padding-bottom: 5%;
+    padding-left: 8%;
+}
+
+.s_aboutmake {
+    padding-left: 8%;
+}
+
+.ContainerBox {
+    display: block;
+    height: auto;
+}
+
+.Container {
+    width: 44vw;
+    height: 33vw;
+    margin: 5vw 10vw;
+}
+
+.ContainerText {
+    display: none;
+}
+
+.s_aboutmake .top-area {
+    height: auto;
+}
+
+.sp_td{
+    display: block;
+    text-align: left;
+    width: 100% !important;
+    margin: 5vw 0;
+    border: none !important;
+}
+
+.sp_inner_td{
+    font-size: 0.5rem !important;
+}
+
+#mytable {
+    width: 100%;
+    height: 35vw;
+    margin: 0;
+}
+
+.graphtext {
+    padding-top: 3vw !important;
+    font-size: 1rem;
+}
+
+.subtitle {
+    width: 50vw;
+}
+
+.subtext {
+    line-height: 4.5vw;
+}
+
+.sub-title {
+    padding: 0 5vw;
+}
+
+.timeline-list-item .date {
+    font-size: 1.5rem;
+    width: 25%;
+    padding: 0 0 0 0;
+}
+
+.timeline-list {}
+
+.timeline-list-item {
+    font-size: 3px;
+}
+
+.timeline-list-item .content {
+    padding: 0 20px 60px 20px;
+    border-left: 5px solid #ffa500;
+}
+
+.timeline-list-item .content::before {
+    top: -10px;
+    left: -17px;
+    width: 30px;
+    height: 30px;
+}
+
+.circle {
+    width: 18vw;
+    height: 18vw;
+}
+
+.message {
+    font-size: 1.5rem;
+    padding: 1vw 0;
+}
+
+.message-child {
+    font-size: 1.3rem;
+    line-height: 4.5vw;
+}
+
+.sub-text {
+    width: 80%;
+    transform: translateX(13%);
+}
+
+.sub-title {
+    font-size: 1.5rem;
+}
+
+.sub-title {
+    font-size: 1.5rem;
+}
+
+#nav-input:checked ~ #nav-content {
+    transform: translateX(-75%);
+}
+
+.btn-Ham {
+    height: 12vw;
+    line-height: 12vw;
+}
+
+.sp_modal-content {
+    width: 100% !important;
+}
+
+.sp_position {
+    top: 40% !important;
+    left: 65% !important;
+}
+
+.AllBox {
+    height: 100vw;
+}
+
+.leftBox {
+    width: 100%;
+}
+
+.AllBox {
+    display: block;
+}
+
+.rightBox {
+    display: none;
+    margin-top: 2vw;
+    width: 100%;
+    height: 35%;
+}
+.AllBox h3 {
+    border-bottom: 2px solid #a36a01;
+    width: 80%;
+}
+
+.rightBox-enbded{
+    display: none;
+    margin-top: 2vw;
+    width: 100%;
+    height: 35%;
+}
+
+}

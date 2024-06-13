@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ja">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" media="all" href="common.css" />
+        <link rel="stylesheet" media="all" href="sp_common.css" />
+        <script src="common.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="charts.css-0.9.0/charts.css-0.9.0/dist/charts.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <div class="logo-area"><img class="logo" src="img/logo.png" /></div>
+            <div id="nav-drawer">
+                <input id="nav-input" type="checkbox" class="nav-unshown">
+                <label id="nav-open" for="nav-input"><span></span></label>
+                <label class="nav-unshown" id="nav-close" for="nav-input"></label>
+                <div id="nav-content">
+                <a href="#TOP"><div class="btn-Ham">TOP</div></a>
+                <a href="#s_aboutsite"><div class="btn-Ham">このサイトについて</div></a>
+                <a href="#s_aboutme"><div class="btn-Ham">わたしについて</div></a>
+                <a href="#s_aboutmake"><div class="btn-Ham">これまでの製作物</div></a>
+                <a href="#s_SkilSet"><div class="btn-Ham">スキルセット</div></a>
+                <a href="#s_Profile"><div class="btn-Ham">プロフィール</div></a>
+                <a href="#s_contactfrome"><div class="btn-Ham">Contact</div></a>
+                </div>
+            </div>
+        </header>
+        <div class="view">
+            <!-- トップページ   -->
+            <section class="s_top">
+                <nav>
+                    <ul>
+                        <div class="top-area">
+                            <h1>Tomoya Portfolio</h1>
+                            <h2>Tomoya Engineering Portfolio Site</h2>
+                        </div>
+                        <div class="btn-dog"></div>
+                        <div class="pagenation" style="margin: 0 10%;">
+                            <div class="page-this"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                        </div>
+                    </ul>
+                </nav>
+            </section>
+        </div>
+        <div class="background">
+        <section id="s_aboutsite" class="s_aboutsite">
+                <nav>
+                    <ul>
+                        <div class="top-area">
+                            <h1>このサイトについて</h1>
+                            <span class="dsp-font">このサイトはエンジニアTomoyaのポートフォリオサイトです。
+                                これまでに手掛けた製作物、スキルをまとめています。ご覧いただいた方に、私の事を良く知ってほしいと思い作成しました。
+                                ごゆっくりとご覧ください。
+                            </span>
+                        </div>
+                        <div class="pagenation">
+                            <div class="page"></div>
+                            <div class="page-this"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                        </div>
+                    </ul>
+                </nav>
+            </section>
+            <section id="s_aboutme" class="s_aboutme">
+                <nav>
+                    <ul>
+                        <div class="top-area">
+                            <h1>わたしについて</h1>
+                            <div class="about-me">
+                                <div class="dogicon"></div>
+                                <span class="dsp-font">
+                                    茨城県出身のエンジニア。専門学校で情報技術を学んだ後、地元のIT企業に就職。
+                                    WEB系の勤怠管理システム開発に従事。
+                                    その後、組み込み系システムの開発に従事するも、再度WEB系の開発をしたいと思い、転職。
+                                    転職後は都内のIT企業でWEB系システムの開発に従事。
+                                    一部基本設計からリリースまで経験してきました。
+                                </span>
+                            </div>
+                        </div>
+                        <div class="pagenation">
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page-this"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                        </div>
+                    </ul>
+                </nav>
+            </section>
+            <section id="s_aboutmake" class="s_aboutmake">
+                <nav>
+                    <ul>
+                        <div class="top-area">
+                            <h1>これまでの製作物</h1>
+                            <div class="ContainerBox margin-top" >
+                                <button type="button" class="Container web-img" data-bs-toggle="modal" data-bs-target="#test-modal" onclick="poppu('test-modal');"></button>
+                                <div id="test-modal" class="modal fade sp_position" tabindex="-1" aria-hidden="true" style="top:40%; left:50%;    transform: translate(-65%,-20%);">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content sp_modal-content" style="width:200%">
+                                            <div class="modal-header">
+                                                <!--   <h5 class="modal-title">WEB系システム開発</h5> -->
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="AllBox">
+                                                    <div class="leftBox">
+                                                        <div class="DescriptionBox">
+                                                            <h3>WEB系システム開発</h3>
+                                                            <span class="d-text">◆勤怠管理システム<Br></span>
+                                                            <span class="d-text">
+                                                                HTML/CSS/JavaScript/JQuery/PHPを使用したWEBシステムです。
+                                                                フロントエンド/サーバサイド双方を担当しました。
+                                                                初の実務でしたが、この開発の中で基礎的な知識やクライアント/サーバ間の
+                                                                関係について等多くを学ぶことができました。
+                                                            </span>
+                                                            <span class="d-text"><br>◆図書管理システム<br></span>
+                                                            <span class="d-text">
+                                                                HTML/CSS/JavaScript/JQuery/C/Java/JSPを使用したWEBシステムです。
+                                                                フロントエンド/サーバサイド双方を担当しました。
+                                                                この開発はフルリモートで進めたため一人称での作業がほとんどでした。
+                                                                今までよりも技術調査や詳細設計に力を入れるなど、開発力が大きく向上したと思っています。<br>
+                                                            </span>
+                                                        </div>
+                                                        <div class="DescriptionBox">
+                                                            <h3>使用言語など</h3>
+                                                            <span class="d-text">
+                                                            言語：HTML/CSS/JavaScript/JQuery/C/Java/JSP/PHP<br>
+                                                            開発環境　: Windows/Linux<br>
+                                                            IDE　:  Eclips/VsCode<Br>
+                                                            開発ツール　: Git/SVN/WinMerge/TeraTerm/backlog/xampp
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rightBox">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="Container embedded-img" data-bs-toggle="modal" data-bs-target="#test-modal-2" onclick="poppu('test-modal-2');" ></button>
+                                <div id="test-modal-2" class="modal fade sp_position" tabindex="-1" aria-hidden="true" style="top:40%; left:50%;    transform: translate(-65%,-20%);">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content sp_modal-content" style="width:200%">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="close(this);"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="AllBox">
+                                                    <div class="leftBox">
+                                                        <div class="DescriptionBox">
+                                                            <h3>組み込み系開発</h3>
+                                                            <span class="d-text">◆某鉄道会社向けシステム<Br></span>
+                                                            <span class="d-text">
+                                                                C言語を使用した組み込み系システムです。
+                                                                一部機能設計からテストまでを担当しました。
+                                                                一番稼働時間が長く大変なプロジェクトでしたが、この期間で調査力が向上しました。
+                                                                更にタイトなスケジュール間の中で仕事を円滑に進める手法を学びました。
+                                                            </span>
+                                                            <span class="d-text"><br>◆某モール向け空調管理システム<br></span>
+                                                            <span class="d-text">
+                                                                VB.netを使用した組み込み系システムです。
+                                                                基本設計からリリースまで担当しました。
+                                                                この開発は当時務めていた会社の役員と行った業務で、自分の甘さを認識したプロジェクトでした。
+                                                                この時の反省をもとに、その先の開発を進めています。<br>
+                                                            </span>
+                                                        </div>
+                                                        <div class="DescriptionBox">
+                                                            <h3>使用言語など</h3>
+                                                            <span class="d-text">
+                                                            言語：C/VB.net<br>
+                                                            開発環境　: Windows Server/Linux<br>
+                                                            IDE　:  Eclips/Vim/Visual Studio<Br>
+                                                            開発ツール　: WinMerge/TeraTerm/Adam/ReCa
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rightBox-enbded">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="close(this);">閉じる</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button type="button" class="Container" data-bs-toggle="modal" data-bs-target="#test-modal-3" onclick="alert('COMMING SOON...');poppu('test-modal-3');">
+                                    Laravelデモサイト
+                                </button>
+<!--
+                                <div id="test-modal-3" class="modal fade" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Laravelデモサイト</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="close(this);"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ここに本文を書けます。
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="close(this);">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="ContainerText" >
+                                <span class="text">Web系システム開発</span>
+                                <span class="text">組み込み系システム開発</span>
+                                <span class="text">Laravelデモサイト開発</span>
+                            </div>
+-->
+                            </div>
+                            <div class="ContainerBox">
+                                <button type="button" class="Container" data-bs-toggle="modal" data-bs-target="#test-modal-4" onclick="alert('COMMING SOON...'); poppu('test-modal-4');">
+                                    自身のサービス-教育
+                                </button>
+<!--
+                                <div id="test-modal-4" class="modal fade" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">自身のサービス</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="close(this);"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ここに本文を書けます。
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="close(this);">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+-->
+
+                                <button type="button" class="Container" data-bs-toggle="modal" data-bs-target="#test-modal-5" onclick="alert('COMMING SOON...'); poppu('test-modal-5');">
+                                    Next・・・スーパーの品物マッピングシステム
+                                </button>
+                            </div>
+
+<!--
+                            <div id="test-modal-5" class="modal fade" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">スーパーの品物マッピングシステム</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="close(this);"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                ここに本文を書けます。
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="close(this);">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+-->
+
+
+                        <div class="pagenation">
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page-this"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                        </div>
+                    </ul>
+                </nav>
+            </section>
+            <section id="s_SkilSet" class="s_SkilSet">
+                <nav>
+                    <ul>
+                        <div class="top-area">
+                            <h1>スキルセット</h1>
+                            <div class="about-me">
+                                <div class="dogicon"></div>
+                                <span class="dsp-font">
+                                これまで身につけたスキルをまとめました。
+                                まだ長いとは言えない経験の中でですが、組み込みからWEB系までスキルアップに取り組んできました。
+                                手続き型言語であるＣ言語の知見をWEB開発に活かせるのが強みです。
+                                今後はバックエンド系の業務に携わる比率を増やし、より専門性を高めていきたいと考えています。
+                                </span>
+                            </div>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td class="sp_td" style="width:50%;border-right: 1px solid #80808080;">
+                                        <table class="charts-css column  multiple show-heading show-labels show-primary-axis datasets-spacing-10 show-labels" id="mytable">
+                                            <caption class="graphTitle"> 言語 </caption>
+                                            <tbody>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> C </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 4 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 4年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> HTML/CSS </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 3 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 3年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> JavaScript </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 3 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 3年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Jquery </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 0.5 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 0.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Vue.js </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 0.5 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 0.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> PHP </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 1.5 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 1.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Java </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 0.5 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 0.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> PL/SQL</th>
+                                                    <td class="sp_inner_td" style="--size: calc( 1 / 5 ); font-size: 1.5rem; background-color: #f69433;"> 1年</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="sp_td" style="width:50%;">
+                                        <table class="charts-css column  multiple show-heading show-labels show-primary-axis datasets-spacing-10 show-labels" id="mytable">
+                                            <caption class="graphTitle"> 開発ツール </caption>
+                                            <tbody>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Windows </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 4 / 5 ); font-size: 1.5rem; background-color: #f0841a;"> 4年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Linux </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 2.5 / 5 ); font-size: 1.5rem; background-color: #f0841a; "> 2.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Vscode </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 1.5 / 5 ); font-size: 1.5rem; background-color: #f0841a;"> 1.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Eclips </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 1.5 / 5 ); font-size: 1.5rem; background-color: #f0841a;"> 1.5年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> SVN </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 1 / 5 ); font-size: 1.5rem; background-color: #f0841a;"> 1年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Git </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 1 / 5 ); font-size: 1.5rem; background-color: #f0841a;"> 1年</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="graphtext" scope="row"> Docker </th>
+                                                    <td class="sp_inner_td" style="--size: calc( 0.5 / 5 ); font-size: 1.5rem; background-color: #f0841a;"> 0.5年</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>
+                                <h2 class="subtitle">保有資格</h2>
+                                <div class="subtextbox">
+                                    <span class="subtext">・日商簿記2級</span>
+                                    <span class="subtext">・ITパスポート</span>
+                                    <span class="subtext">・基本情報処理</span>
+                                    <span class="subtext">・MOS PowerPoint</span>
+                                    <span class="subtext">・MOS Excel</span>
+                                    <span class="subtext">・Oracle Silver DBA（学習中）</span>
+                                    <span class="subtext">・Java Silver（取得予定）</span>
+                                    <span class="subtext">・PHP技術者認定（取得予定）</span>
+                                    <span class="subtext">・システムアーキテクト（取得予定）</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pagenation">
+                        <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page-this"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                        </div>
+                    </ul>
+                </nav>
+            </section>
+            <section id="s_Profile" class="s_Profile">
+                <nav>
+                    <ul>
+                        <div class="top-area">
+                            <h1>プロフィール</h1>
+                            <div class="sub-title">せっかくなので私のこれまでのプロフィールを振り返りました。</div>
+                            <!--タイムライン -->
+                            <div class="timeline">
+                                <ul class="timeline-list">
+                                    <li class="timeline-list-item">
+                                        <div class="date">1999年～</div>
+                                        <div class="content text-font-size">
+                                            <div class="circle"></div>
+                                            <div class="message">茨城県水戸市に爆誕する</div>
+                                            <div class="message">特にしたいこともない幼少期を過ごす</br>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-list-item">
+                                        <div class="date">2015年～</div>
+                                        <div class="content text-font-size">
+                                            <div class="circle-2015"></div>
+                                            <div class="message">ITを知り、だんだんと好きになる</div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-list-item">
+                                        <div class="date">2017年～</div>
+                                        <div class="content text-font-size">
+                                            <div class="circle-2017"></div>
+                                            <div class="message">地元の情報系専門学校に入学</div>
+                                            <div class="message">卒論システム開発でリーダーとなり深夜までプログラミングをする</div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-list-item">
+                                        <div class="date">2019年～</div>
+                                        <div class="content text-font-size">
+                                            <div class="circle-2019"></div>
+                                            <div class="message">地元のIT企業でエンジニアとして働き始める</div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-list-item">
+                                        <div class="date">2021年～</div>
+                                        <div class="content text-font-size">
+                                            <div class="circle-2021"></div>
+                                            <div class="message">
+                                                <div class="message-parent">今の働き方に疑問を感じ始める</div>
+                                                <div class="message-child">
+                                                当時は任された仕事をとにかく頑張ればいいと言われ、意味も考えることなく
+                                                仕事をこなしていきました。<br>
+                                                しかし年数を重ねるごとに、自分の「なりたいエンジニア」に近づいていない
+                                                気がし、言われるがまま行う仕事に疑問を持つ用になりました。
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <li class="timeline-list-item">
+                                        <div class="date">2022年～</div>
+                                        <div class="content text-font-size">
+                                        <div class="circle-2022"></div>
+                                        <div class="message">
+                                                <div class="message-parent">「なりたいエンジニア」になるために転職</div>
+                                                <div class="message-child">
+                                                「なりたいエンジニア」になるためには自分から動かなければいけないと思い、
+                                                転職をする。<br>
+                                                転職先では自分の高めたい技術を理解してくれる会社で自己研鑽を交えつつ、さらなる実務経験を積んでいます。
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-list-item">
+                                        <div class="date">2023年～</div>
+                                        <div class="content text-font-size">
+                                        <div class="message">これからも「なりたいエンジニア」になるためにさらなる自己研鑽を</div>
+                                        </div>
+                                    </li>
+                                    <div class="sub-title">感謝の心とエンジニアとしての想い</div>
+                                    <div class="sub-text">
+                                        日常の中で忘れてしまうような基本ですが、
+                                        今の私があるのは色々な人が会話し教育しアドバイスしてくれたおかげです。
+                                        ITに興味を持ったのも、エンジニアとして働き始められたのも、転職に踏み切れたのも
+                                        そういった人たちのおかげです。心から感謝しています。<br><br>
+                                        今後は、エンジニアとして技術で人の便利を作れるようになっていきたいです。
+                                        その延長線で誰かが笑顔になってくれたら尚嬉しいです。
+                                        しかし、まだまだ技術が足りないので、自己研鑽や先輩方から技術を盗みつつ
+                                        目標のエンジニアに近づいて行きたいと思います。<br><br>
+
+                                        まだまだ未熟ではありますが、自己研鑽を怠らず技術で人を幸せにできるよう
+                                        心がけていきます。
+                                </ul>
+                            </div>
+                        
+                        </div>
+                        <div class="pagenation">
+                        <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page"></div>
+                            <div class="page-this"></div>
+                            <div class="page"></div>
+                        </div>
+                    </ul>
+                </nav>
+            </section>
+            <section id="s_contactfrome" class="s_contactfrome">
+            <nav>
+                <ul>
+                    <div class="top-area">
+                    <h1>Contact</h1>
+                    <div class="sub-title">
+                        最後までご覧いただきありがとうございました。このサイトを通して、少しでも私のことを知っていただけたら嬉しいです。
+                        もし、このサイトや私について何かコメントなどありましたら
+                        下記フォームをご利用ください。
+                    </div> 
+                        <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdb8z9C9mErtn28fCMWuljo-qkBosKqaAdE-2svI6AADTF1gg/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;" style="margin-bottom: 5vw;">
+                            <div class="Form">
+                                <div class="Form-Item">
+                                    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>お名前</p>
+                                    <input type="text" id="name" name="entry.20992156" class="Form-Item-Input" placeholder="例）山田太郎" required>
+                                </div>
+                                <div class="Form-Item">
+                                    <p class="Form-Item-Label">電話番号</p>
+                                    <input type="text" id="number" name="entry.1060701539" class="Form-Item-Input" placeholder="例）000-0000-0000">
+                                </div>
+                                <div class="Form-Item">
+                                    <p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>メールアドレス</p>
+                                    <input type="email" id="email" class="Form-Item-Input" name="entry.268367168" placeholder="例）example@gmail.com">
+                                </div>
+                                <div class="Form-Item">
+                                    <p class="Form-Item-Label isMsg"><span class="Form-Item-Label-Required">必須</span>お問い合わせ内容</p>
+                                    <textarea id="contact" class="Form-Item-Textarea" name="entry.1893450088"></textarea>
+                                </div>
+                                <input type="submit" class="Form-Btn" onclick="return checkForm();" value="送信する">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="pagenation">
+                        <div class="page"></div>
+                        <div class="page"></div>
+                        <div class="page"></div>
+                        <div class="page"></div>
+                        <div class="page"></div>
+                        <div class="page"></div>
+                        <div class="page-this"></div>
+                    </div>
+                </ul>
+            </nav>
+            </section>
+            <script type="text/javascript">
+                let submitted = false;
+            </script>
+            <iframe
+                name="hidden_iframe"
+                id="hidden_iframe"
+                style="display: none"
+                onload="if(submitted){alert('送信しました。');}"
+            ></iframe>
+        </div>
+        <footer>
+            <div class="f-top"></div>
+            <div class="f-bottom">
+                <a href="#TOP"><div class="backtop"></div></a>
+            </div>
+        </footer>
+    </body>
+</html>
