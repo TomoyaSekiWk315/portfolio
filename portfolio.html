@@ -18,6 +18,13 @@
 
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Post Processing -->
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
     <!-- Devicon -->
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
@@ -328,145 +335,143 @@
     </footer>
 
     <script>
-        // Three.js Scene Setup
+        // Three.js Scene Setup with BLOOM
         const scene = new THREE.Scene();
-        // フォグを追加して奥行き感を出す（黒背景に馴染ませる）
-        scene.fog = new THREE.FogExp2(0x050505, 0.002);
-
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.toneMapping = THREE.ReinhardToneMapping;
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // 1. Starfield (エンジニア的なグリッド/データ空間のイメージ)
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 2000;
-        const posArray = new Float32Array(particlesCount * 3);
-        const sizesArray = new Float32Array(particlesCount);
+        // --- Post Processing (Bloom) Setup ---
+        const renderScene = new THREE.RenderPass(scene, camera);
+        
+        // Resolution, strength, radius, threshold
+        const bloomPass = new THREE.UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            1.5, // Strength: 発光の強さ
+            0.4, // Radius: 発光の広がり
+            0.85 // Threshold: 発光を開始する輝度の閾値
+        );
 
-        for(let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 20; // 広範囲に配置
-        }
-        for(let i = 0; i < particlesCount; i++) {
-            sizesArray[i] = Math.random();
+        const composer = new THREE.EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+
+        // --- Objects ---
+
+        // 1. Cyber Core (エンジニアリングの核)
+        // Icosahedron（正20面体）を幾重にも重ねて複雑な構造体を作る
+        const coreGroup = new THREE.Group();
+        scene.add(coreGroup);
+
+        const geo1 = new THREE.IcosahedronGeometry(1, 1);
+        const mat1 = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+        const mesh1 = new THREE.Mesh(geo1, mat1);
+        coreGroup.add(mesh1);
+
+        const geo2 = new THREE.IcosahedronGeometry(2, 0);
+        const mat2 = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true, transparent: true, opacity: 0.3 });
+        const mesh2 = new THREE.Mesh(geo2, mat2);
+        coreGroup.add(mesh2);
+
+        // 2. Data Particles (光の粒子)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 4000;
+        const posArray = new Float32Array(particlesCount * 3);
+        const colorsArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i+=3) {
+            // トルネード状に配置
+            const r = Math.random() * 10 + 2;
+            const theta = Math.random() * Math.PI * 2;
+            const y = (Math.random() - 0.5) * 20;
+            
+            posArray[i] = r * Math.cos(theta);     // x
+            posArray[i+1] = y;                     // y
+            posArray[i+2] = r * Math.sin(theta);   // z
+
+            // Color: Cyan to Magenta gradient
+            const mix = Math.random();
+            colorsArray[i] = mix * 0.5;     // R
+            colorsArray[i+1] = 1.0 - mix;   // G
+            colorsArray[i+2] = 1.0;         // B
         }
 
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizesArray, 1));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
 
-        // カスタムシェーダーで光るパーティクルを作る
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.02,
-            color: 0x4f4f4f,
+            size: 0.03,
+            vertexColors: true,
+            blending: THREE.AdditiveBlending,
             transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending
+            opacity: 0.8
         });
 
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
-        // 2. Floating Images (犬との思い出、技術の断片)
-        // 幾何学的な平面を浮かべて、そこにテクスチャを貼るイメージだが、
-        // 今回はシンプルかつスタイリッシュに「光る枠（フレーム）」を浮かべる
-        const framesGroup = new THREE.Group();
-        scene.add(framesGroup);
+        // 3. Floating Digital Rings (軌道)
+        const ringsGroup = new THREE.Group();
+        scene.add(ringsGroup);
 
-        const frameGeometry = new THREE.BoxGeometry(1, 1.4, 0.05);
-        const frameMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0x333333, 
-            wireframe: true,
-            transparent: true,
-            opacity: 0.1
-        });
-
-        // 複数のフレームをランダムに配置
-        for (let i = 0; i < 15; i++) {
-            const frame = new THREE.Mesh(frameGeometry, frameMaterial);
-            frame.position.set(
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 15,
-                (Math.random() - 0.5) * 10 - 5 // 手前〜奥
-            );
-            frame.rotation.set(
-                Math.random() * Math.PI,
-                Math.random() * Math.PI,
-                0
-            );
-            // ランダムなスケール
-            const scale = Math.random() * 0.5 + 0.5;
-            frame.scale.set(scale, scale, scale);
+        for(let i=0; i<5; i++) {
+            const ringGeo = new THREE.TorusGeometry(3 + i * 1.5, 0.02, 16, 100);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x4444ff, transparent: true, opacity: 0.5 });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
             
-            framesGroup.add(frame);
+            ring.rotation.x = Math.random() * Math.PI;
+            ring.rotation.y = Math.random() * Math.PI;
+            ringsGroup.add(ring);
         }
-
-        // 3. Digital DNA / Data Stream (螺旋)
-        // エンジニアリングと生命（犬）の融合のメタファー
-        const helixGeometry = new THREE.BufferGeometry();
-        const helixCount = 100;
-        const helixPositions = new Float32Array(helixCount * 3);
         
-        for(let i = 0; i < helixCount; i++) {
-            const t = i * 0.2;
-            helixPositions[i * 3] = Math.cos(t) * 2;
-            helixPositions[i * 3 + 1] = (i * 0.1) - 5;
-            helixPositions[i * 3 + 2] = Math.sin(t) * 2;
-        }
-        helixGeometry.setAttribute('position', new THREE.BufferAttribute(helixPositions, 3));
-        const helixMaterial = new THREE.PointsMaterial({
-            color: 0x00ffff,
-            size: 0.05,
-            transparent: true,
-            opacity: 0.3
-        });
-        const helix = new THREE.Points(helixGeometry, helixMaterial);
-        // scene.add(helix); // 今回はシンプルさを優先してオフにするが、要素としてはアリ
-
-        camera.position.z = 5;
+        camera.position.z = 8;
 
         // Mouse Interaction
         let mouseX = 0;
         let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-
-        const windowHalfX = window.innerWidth / 2;
-        const windowHalfY = window.innerHeight / 2;
-
+        
         document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX - windowHalfX);
-            mouseY = (event.clientY - windowHalfY);
+            mouseX = (event.clientX - window.innerWidth / 2) * 0.001;
+            mouseY = (event.clientY - window.innerHeight / 2) * 0.001;
         });
 
         // Animation Loop
         const clock = new THREE.Clock();
 
         function animate() {
-            targetX = mouseX * 0.001;
-            targetY = mouseY * 0.001;
+            const time = clock.getElapsedTime();
 
-            const elapsedTime = clock.getElapsedTime();
+            // Core Animation
+            mesh1.rotation.y = time * 0.5;
+            mesh1.rotation.z = time * 0.2;
+            
+            mesh2.rotation.y = -time * 0.2;
+            mesh2.rotation.x = time * 0.1;
+            
+            // Pulse Effect (鼓動)
+            const scale = 1 + Math.sin(time * 2) * 0.1;
+            coreGroup.scale.set(scale, scale, scale);
 
-            // パーティクルの回転（ゆっくりと宇宙が回る感じ）
-            particlesMesh.rotation.y = elapsedTime * 0.05;
-            particlesMesh.rotation.x = elapsedTime * 0.02;
-
-            // フレームの浮遊アニメーション
-            framesGroup.children.forEach((frame, i) => {
-                frame.rotation.x += 0.002;
-                frame.rotation.y += 0.003;
-                // ふわふわさせる
-                frame.position.y += Math.sin(elapsedTime * 0.5 + i) * 0.002;
+            // Particles Animation (Swirl)
+            particlesMesh.rotation.y = time * 0.1;
+            
+            // Rings Animation
+            ringsGroup.children.forEach((ring, i) => {
+                ring.rotation.x += 0.002 * (i + 1);
+                ring.rotation.y += 0.001 * (i + 1);
             });
 
-            // カメラのパララックス効果（マウス操作で視点が少し動く）
-            camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 0.005 - camera.position.y) * 0.05;
+            // Camera movement
+            camera.position.x += (mouseX * 10 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 10 - camera.position.y) * 0.05;
             camera.lookAt(scene.position);
 
-            renderer.render(scene, camera);
+            // Render with Bloom
+            composer.render();
             requestAnimationFrame(animate);
         }
 
@@ -477,6 +482,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
 
