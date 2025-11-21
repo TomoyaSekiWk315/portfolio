@@ -16,6 +16,9 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <!-- Devicon -->
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
@@ -38,22 +41,34 @@
 
     <style>
         body {
-            background-color: #09090b; /* bg-zinc-950 */
+            background-color: #050505; /* より深い黒 */
             color: #fafafa;
+            overflow-x: hidden;
         }
         
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .bento-card {
-            background-color: rgba(24, 24, 27, 0.6); /* zinc-900 with opacity */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            background-color: rgba(9, 9, 11, 0.4); /* 透明度を上げて背景を透かす */
+            backdrop-filter: blur(8px); /* ぼかしを少し弱めて背景を感じさせる */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
         
         .bento-card:hover {
-            background-color: rgba(39, 39, 42, 0.8); /* zinc-800 with opacity */
+            background-color: rgba(24, 24, 27, 0.6);
             border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
-            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px) scale(1.01);
         }
 
         /* Custom Scrollbar */
@@ -73,6 +88,9 @@
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center justify-center">
+
+    <!-- 3D Background Container -->
+    <div id="canvas-container"></div>
 
     <main class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 pb-16">
         
@@ -308,6 +326,159 @@
     <footer class="mt-12 text-center text-zinc-600 text-sm pb-8">
         <p>&copy; 2025 Seki. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Three.js Scene Setup
+        const scene = new THREE.Scene();
+        // フォグを追加して奥行き感を出す（黒背景に馴染ませる）
+        scene.fog = new THREE.FogExp2(0x050505, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // 1. Starfield (エンジニア的なグリッド/データ空間のイメージ)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 2000;
+        const posArray = new Float32Array(particlesCount * 3);
+        const sizesArray = new Float32Array(particlesCount);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 20; // 広範囲に配置
+        }
+        for(let i = 0; i < particlesCount; i++) {
+            sizesArray[i] = Math.random();
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizesArray, 1));
+
+        // カスタムシェーダーで光るパーティクルを作る
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x4f4f4f,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // 2. Floating Images (犬との思い出、技術の断片)
+        // 幾何学的な平面を浮かべて、そこにテクスチャを貼るイメージだが、
+        // 今回はシンプルかつスタイリッシュに「光る枠（フレーム）」を浮かべる
+        const framesGroup = new THREE.Group();
+        scene.add(framesGroup);
+
+        const frameGeometry = new THREE.BoxGeometry(1, 1.4, 0.05);
+        const frameMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x333333, 
+            wireframe: true,
+            transparent: true,
+            opacity: 0.1
+        });
+
+        // 複数のフレームをランダムに配置
+        for (let i = 0; i < 15; i++) {
+            const frame = new THREE.Mesh(frameGeometry, frameMaterial);
+            frame.position.set(
+                (Math.random() - 0.5) * 15,
+                (Math.random() - 0.5) * 15,
+                (Math.random() - 0.5) * 10 - 5 // 手前〜奥
+            );
+            frame.rotation.set(
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                0
+            );
+            // ランダムなスケール
+            const scale = Math.random() * 0.5 + 0.5;
+            frame.scale.set(scale, scale, scale);
+            
+            framesGroup.add(frame);
+        }
+
+        // 3. Digital DNA / Data Stream (螺旋)
+        // エンジニアリングと生命（犬）の融合のメタファー
+        const helixGeometry = new THREE.BufferGeometry();
+        const helixCount = 100;
+        const helixPositions = new Float32Array(helixCount * 3);
+        
+        for(let i = 0; i < helixCount; i++) {
+            const t = i * 0.2;
+            helixPositions[i * 3] = Math.cos(t) * 2;
+            helixPositions[i * 3 + 1] = (i * 0.1) - 5;
+            helixPositions[i * 3 + 2] = Math.sin(t) * 2;
+        }
+        helixGeometry.setAttribute('position', new THREE.BufferAttribute(helixPositions, 3));
+        const helixMaterial = new THREE.PointsMaterial({
+            color: 0x00ffff,
+            size: 0.05,
+            transparent: true,
+            opacity: 0.3
+        });
+        const helix = new THREE.Points(helixGeometry, helixMaterial);
+        // scene.add(helix); // 今回はシンプルさを優先してオフにするが、要素としてはアリ
+
+        camera.position.z = 5;
+
+        // Mouse Interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX);
+            mouseY = (event.clientY - windowHalfY);
+        });
+
+        // Animation Loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            targetX = mouseX * 0.001;
+            targetY = mouseY * 0.001;
+
+            const elapsedTime = clock.getElapsedTime();
+
+            // パーティクルの回転（ゆっくりと宇宙が回る感じ）
+            particlesMesh.rotation.y = elapsedTime * 0.05;
+            particlesMesh.rotation.x = elapsedTime * 0.02;
+
+            // フレームの浮遊アニメーション
+            framesGroup.children.forEach((frame, i) => {
+                frame.rotation.x += 0.002;
+                frame.rotation.y += 0.003;
+                // ふわふわさせる
+                frame.position.y += Math.sin(elapsedTime * 0.5 + i) * 0.002;
+            });
+
+            // カメラのパララックス効果（マウス操作で視点が少し動く）
+            camera.position.x += (mouseX * 0.005 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 0.005 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 
 </body>
 </html>
