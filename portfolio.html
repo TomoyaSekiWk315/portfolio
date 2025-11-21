@@ -414,6 +414,73 @@
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
         scene.add(particlesMesh);
 
+        // 2.5. Glowing Paws (光る肉球 - 犬要素の強化)
+        // データ空間に「足跡」を残すようなイメージ
+        const pawGeometry = new THREE.BufferGeometry();
+        const pawCount = 50; // 数は少なめで存在感を出す
+        const pawPositions = new Float32Array(pawCount * 3);
+        
+        for(let i = 0; i < pawCount * 3; i+=3) {
+            // 空間全体に散らす
+            pawPositions[i] = (Math.random() - 0.5) * 25;
+            pawPositions[i+1] = (Math.random() - 0.5) * 25;
+            pawPositions[i+2] = (Math.random() - 0.5) * 15;
+        }
+
+        pawGeometry.setAttribute('position', new THREE.BufferAttribute(pawPositions, 3));
+
+        // テクスチャローダーの代わりに、Canvasで肉球を動的に描画してテクスチャ化する
+        // (ローカル環境での画像読み込みエラーを回避するため)
+        function createPawTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 128;
+            canvas.height = 128;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#ffaa00'; // オレンジ色
+            
+            // メインの肉球 (掌球)
+            ctx.beginPath();
+            // 逆三角形っぽい形に
+            ctx.moveTo(34, 90);
+            ctx.bezierCurveTo(34, 110, 94, 110, 94, 90);
+            ctx.bezierCurveTo(94, 70, 64, 60, 64, 60);
+            ctx.bezierCurveTo(64, 60, 34, 70, 34, 90);
+            ctx.fill();
+            
+            // 指 (指球) 4つ
+            const fingers = [
+                {x: 24, y: 55, r: 12, angle: -0.4},
+                {x: 50, y: 35, r: 13, angle: -0.1},
+                {x: 78, y: 35, r: 13, angle: 0.1},
+                {x: 104, y: 55, r: 12, angle: 0.4}
+            ];
+
+            fingers.forEach(f => {
+                ctx.beginPath();
+                ctx.ellipse(f.x, f.y, f.r, f.r * 1.4, f.angle, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            return texture;
+        }
+
+        const pawTexture = createPawTexture();
+
+        const pawMaterial = new THREE.PointsMaterial({
+            size: 0.8, // 元のサイズに戻す
+            map: pawTexture,
+            transparent: true,
+            opacity: 0.8, // 少し透明にして馴染ませる
+            color: 0xffccaa, // 元の温かみのある色に戻す
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+
+        const pawMesh = new THREE.Points(pawGeometry, pawMaterial);
+        scene.add(pawMesh);
+
         // 3. Floating Digital Rings (軌道)
         const ringsGroup = new THREE.Group();
         scene.add(ringsGroup);
@@ -458,6 +525,16 @@
 
             // Particles Animation (Swirl)
             particlesMesh.rotation.y = time * 0.1;
+
+            // Paws Animation (Floating)
+            pawMesh.rotation.y = time * 0.05;
+            pawMesh.rotation.x = Math.sin(time * 0.1) * 0.1;
+            // ゆっくり点滅させるような効果（不透明度はいじれないので位置で表現）
+            const pawPositions = pawMesh.geometry.attributes.position.array;
+            for(let i=1; i<pawPositions.length; i+=3) {
+                pawPositions[i] += Math.sin(time + pawPositions[i-1]) * 0.005;
+            }
+            pawMesh.geometry.attributes.position.needsUpdate = true;
             
             // Rings Animation
             ringsGroup.children.forEach((ring, i) => {
